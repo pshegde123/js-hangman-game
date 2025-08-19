@@ -18,20 +18,26 @@ const searchableWords = [
 ];
 const maxAttempts = 10;
 const keySound = new Audio ("./assets/sounds/typewriter-key.wav");
+const gameLostSound = new Audio ("./assets/sounds/you-lose.wav");
+const gameWonSound = new Audio ("./assets/sounds/you-win.wav");
 const randomIndex = Math.floor(Math.random() * searchableWords.length);
 const guessingWord = [];
 var positions = [];
+var remainingGuesses = 0; // How many tries the player has left
+var currentSelectedWord = '';
 
 /* Load game */
 /* Display the current word as a series of '-'*/
-let currentSelectedWord = searchableWords[randomIndex];
-console.log('Selected word is:', currentSelectedWord);
+const loadGame = () => {
+    let currentSelectedWord = searchableWords[randomIndex];
+    console.log('Selected word is:', currentSelectedWord);
 
-for (var i = 0; i < currentSelectedWord.length; i++) {
-     guessingWord.push(" _ ");
-}   
-document.getElementById('currentword').innerText = guessingWord.join('');
-
+    for (var i = 0; i < currentSelectedWord.length; i++) {
+        guessingWord.push(" _ ");
+    }   
+    document.getElementById('currentword').innerText = guessingWord.join('');
+    remainingGuesses = maxAttempts;
+}
 /* Declare game functions */
 const playGame = (code) =>{
     //console.log('Playing game with key code:', keyCode);
@@ -52,6 +58,7 @@ const evaluateGuess = (letter) => {
      // if there are no indicies, remove a guess and update the hangman image
     if (positions.length <= 0) {
         //handle 
+        
     } else {
         // Loop through all the indicies and replace the '_' with a letter.
         for(var i = 0; i < positions.length; i++) {           
@@ -59,17 +66,32 @@ const evaluateGuess = (letter) => {
         }
     }    
     positions = [];
+    remainingGuesses--;
 };
+const checkLoss = ()=> {
+    if(remainingGuesses <=0){
+        gameLostSound.play()
+    }
+}
+const checkWin = ()=> {
+    if(remainingGuesses >0 && guessingWord.join('') === currentSelectedWord){
+        gameWonSound.play()
+    }
+}
 const updateDisplay=(code)=>{
     //guessingWord.push(code);
     //find index
     document.getElementById('currentword').innerText = guessingWord.join('');
+    document.getElementById("remainingGuesses").textContent = remainingGuesses;
 }
 
+loadGame();   
 document.addEventListener('keydown',(event)=>{    
     if(event.keyCode >= 65 && event.keyCode <= 90) // A-Z
-    {        
+    {            
         playGame(event.key);
+        checkLoss();
+        checkWin();
     }
     
 });
