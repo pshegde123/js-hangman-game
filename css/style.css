@@ -16,13 +16,16 @@ body {
 aside {
     background-color: #38b18a;
     grid-area: aside;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
     /* name of area */
 }
 
 main {
     background-color: #92d97c;
     grid-area: main;
-    /* name of area */
+    padding: 40px;
 }
 
 header {
@@ -35,7 +38,8 @@ header {
 footer {
     background-color: #f9f871;
     grid-area: footer;
-    /* name of area */
+    display: flex;
+    justify-content: center;
 }
 
 footer,
@@ -47,4 +51,10 @@ p {
     display: flex;
     justify-content: center;
     ;
+}
+
+img {
+    width: 400px;
+    height: 250px;
+    margin: auto;
 }
