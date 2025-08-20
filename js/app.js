@@ -1,18 +1,18 @@
 /* Declare constants and variables */
 const searchableWords = [
     'aero',
-    'agent zero',
+    'agentzero',
     'ironman',
-    'captain america',
+    'captainamerica',
     'antman',
     'wolverine',
     'spiderman',
-    'doctor strange',
-    'black panther',
+    'electra',
+    'blackpanther',
     'thor',
     'vision',
-    'the scarlet witch',
-    'nick fury',
+    'deadpool',
+    'professorx',
     'magnato',
     'iceman'
 ];
@@ -22,6 +22,7 @@ const gameLostSound = new Audio ("./assets/sounds/you-lose.wav");
 const gameWonSound = new Audio ("./assets/sounds/you-win.wav");
 const randomIndex = Math.floor(Math.random() * searchableWords.length);
 var guessingWord = [];
+let guessedLetters = [];
 let isGameOver = false;
 var positions = [];
 var remainingGuesses = 0; // How many tries the player has left
@@ -35,7 +36,7 @@ const loadGame = () => {
     document.getElementById('winImage').style.display = 'none';
     document.getElementById('gameoverImage').style.display = 'none';
     document.getElementById('hangmanImage').style.display = 'none';
-    document.getElementById('pressKeyTryAgain').style.display = 'block';
+    document.getElementById('pressKeyTryAgain').style.display = 'block';    
 
     for (var i = 0; i < currentSelectedWord.length; i++) {
         guessingWord.push(" _ ");
@@ -63,7 +64,9 @@ const evaluateGuess = (letter) => {
      //console.log('positions:', positions);
      // if there are no indicies, remove a guess and update the hangman image
     if (positions.length <= 0) {
-        //handle         
+        // incorrect guesses
+        guessedLetters.push(letter);
+        document.getElementById("incorrectGuesses").textContent = guessedLetters.join(', ');       
     } else {
         // Loop through all the indicies and replace the '_' with a letter.
         for(var i = 0; i < positions.length; i++) {           
@@ -80,14 +83,16 @@ const updateImage = () =>{
 }
 const checkLoss = ()=> {
     if(remainingGuesses <=0){
+        document.getElementById('hangmanImage').classList.add('bounce'); 
         document.getElementById('hangmanImage').src = './assets/images/lose.jpg';
         gameLostSound.play()
         isGameOver = true;
     }
 }
 const checkWin = ()=> {
-    if(remainingGuesses >0 && guessingWord.join('') === currentSelectedWord){
-        document.getElementById('hangmanImage').src = './assets/images/you-win.png';
+    if(remainingGuesses >0 && guessingWord.join('') === currentSelectedWord){      
+        document.getElementById('hangmanImage').classList.add('bounce'); 
+        document.getElementById('hangmanImage').src = './assets/images/you-win.png';        
         gameWonSound.play()
         isGameOver = true;
     }
@@ -103,7 +108,10 @@ const resetGame = () => {
     currentWordIndex = Math.floor(Math.random() * (searchableWords.length));
     positions = [];
     guessingWord = [];
-    document.getElementById('hangmanImage').src = "";
+    guessedLetters = [];    
+    document.getElementById('hangmanImage').style.display = 'none';   
+     document.getElementById('pressKeyTryAgain').style.display = 'block';
+    document.getElementById("incorrectGuesses").textContent = guessedLetters.join(', ');     
 
      for (var i = 0; i < searchableWords[currentWordIndex].length; i++) {
         guessingWord.push(" _ ");

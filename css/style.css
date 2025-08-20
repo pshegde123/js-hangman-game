@@ -3,40 +3,43 @@ body {
     font-family: sans-serif;
     font-size: 24px;
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
         "header header header"
         "aside main main"
         "footer footer footer";
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
 }
 
 aside {
-    background-color: #38b18a;
+    background-color: #d5dbef;
     grid-area: aside;
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 5%;
     /* name of area */
 }
 
 main {
-    background-color: #92d97c;
+    background-color: #aeb9e4;
     grid-area: main;
     padding: 40px;
+    border: 1px solid #000;
 }
 
 header {
     grid-area: header;
     display: flex;
     justify-content: center;
+    background-color: black;
+    color: white;
     /* name of area */
 }
 
 footer {
-    background-color: #f9f871;
+    background-color: black;
     grid-area: footer;
     display: flex;
     justify-content: center;
@@ -54,7 +57,31 @@ p {
 }
 
 img {
-    width: 400px;
-    height: 250px;
+    width: 430px;
+    height: 380px;
     margin: auto;
+}
+
+.bounce {
+    animation: bounceIn 1s infinite 2s;
+}
+
+@keyframes bounceIn {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
 }
