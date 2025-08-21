@@ -20,3 +20,6 @@ This project is developed as a part of [General Assembly](https://pshegde123.git
 
 # Live Demo
 [Click here to play](https://pshegde123.github.io/js-hangman-game/)
+
+# Next Step
+TBD
