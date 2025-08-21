@@ -65,7 +65,7 @@ const evaluateGuess = (letter) => {
             positions.push(i);            
         }
     }
-    console.log('positions:', positions);
+    //console.log('positions:', positions);
 
     // if there are no position indicies, remove a guess and update the hangman image
     if (positions.length <= 0) {
@@ -86,7 +86,7 @@ const evaluateGuess = (letter) => {
         else{           
             //console.log('Replacing positions:', positions);
             //console.log('Letters guessed : ', guessingWord);
-            
+
             // Loop through all the indicies and replace the '_' with a letter.
             for(var i = 0; i < positions.length; i++) {           
                 guessingWord[positions[i]] = letter;            
